@@ -42,6 +42,7 @@ VO_DIR = BUILD / "vo"
 VO_SPEED = 1.08          # Piper length_scale: a touch slower than default, for a lecture
 VO_LEAD = 0.25           # seconds into a scene before its line starts
 MUSIC_LEVEL = 0.33       # music under the voice (it ducks further while the voice speaks)
+MUSIC_ALONE = 0.8        # music in a video without a voice (the lecture): it carries the sound
 GAME_LEVEL = 0.8         # the game's own sound in footage scenes
 GAME_MAX_SPEED = 2.0     # faster clips are not given sound (it would be noise)
 REC_DIR = Path.home() / ".btd6bot_cache" / "recordings"
@@ -150,7 +151,7 @@ def mix_audio(video, lines, starts, duration, seed=7, game=(), moods=None):
         return
     graph = ";".join(chains)
     graph += f";{''.join(labels)}amix=inputs={len(labels)}:normalize=0,apad[vo];[vo]asplit[key][voice]"
-    graph += f";[1]volume={MUSIC_LEVEL}[bed];[bed][key]sidechaincompress=threshold=0.02:ratio=6:attack=30:release=500[ducked]"
+    graph += f";[1]volume={MUSIC_LEVEL if lines else MUSIC_ALONE}[bed];[bed][key]sidechaincompress=threshold=0.02:ratio=6:attack=30:release=500[ducked]"
     graph += ";[ducked][voice]amix=inputs=2:normalize=0,alimiter=limit=0.95[a]"
     out = video.with_name(video.stem + "_mixed.mp4")
     subprocess.run(args + ["-filter_complex", graph, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac",
