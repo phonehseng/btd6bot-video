@@ -17,6 +17,10 @@ const FOOTAGE = {
   karts:     { chunks: ["020849", "020949"], start: 55, dur: 60, speed: 1.5 },   // 02:09:44, Karts N Darts Easy
   cgPlace:   { chunks: ["021749", "021849"], start: 8, dur: 32, speed: 1.5 },    // 02:17:57, Covered Garden Easy
   parkPlace: { chunks: ["024649", "024749"], start: 9, dur: 30, speed: 1.5 },    // 02:46:58, Park Path ABR
+  // recorded with the game's own sound (gameaudio.py): Moon Landing Double HP, 12:13 - 12:25
+  moonPlace: { chunks: ["121301", "121401"], start: 17, dur: 48, speed: 1.5 },   // 12:13:18, the opening build (log in sync)
+  moonMoab:  { chunks: ["121601", "121701"], start: 20, dur: 30, speed: 1 },     // round 40: the MOAB popped
+  moonWin:   { chunks: ["122401", "122501"], start: 55, dur: 25, speed: 1 },     // round 80 and the Victory screen
   // one whole game: Park Path ABR, 02:46:59 - 02:57:49 (round 22 to 80, Fast Track)
   fullgame: { chunks: ["024549", "024649", "024749", "024849", "024949", "025049", "025149", "025249", "025349", "025449",
             "025549", "025649", "025749"], start: 70, dur: 655, speed: 16 },
@@ -45,7 +49,7 @@ const LONG = {
       box: { kicker: "LIVE  10/23  00:21", big: "3 AM", sub: "Party Parade - Hard" }, stat: { label: "HANDS ON THE MOUSE", value: "0" },
       caps: ["The middle of the night. Bloons TD 6 on Hard, round seventy-five, and nobody is at the desk.",
         "No mods in the game, no AI in the program: a Python script is reading the screen and playing."] },
-    { kind: "lineup", d: 8, mood: "tense", label: "From zero to 94 wins", title: "Pop Theory",
+    { kind: "lineup", d: 8, mood: "tense", label: "From zero to 132 wins", title: "Pop Theory",
       box: { kicker: "A STORY IN SEVEN PARTS", big: "Pop Theory", sub: "Python + OpenCV vs. Bloons" },
       caps: ["Three days ago it couldn't tell a monkey from a wall. This is how it got here - mistakes included."] },
 
@@ -169,7 +173,7 @@ const LONG = {
       box: { kicker: "PLANNER.PY", big: "p(win)", sub: "never a replay" },
       caps: ["Between games it scores every medal it hasn't won - chance to win, minutes, experience per minute - and picks the next one itself.",
         "Hard first, one medal at a time across every map."] },
-    { kind: "footage", clip: "parkPlace", log: true, speed: 1.5, d: 12, mood: "triumph", label: "Part 7 - The night shift", title: "First try",
+    { kind: "footage", clip: "moonPlace", log: true, speed: 1.5, d: 12, mood: "triumph", label: "Part 7 - The night shift", title: "First try",
       box: { kicker: "BOT.LOG", big: "placed", sub: "x1.5" },
       caps: ["Then it opens the map and builds. Every tower lands on a spot the game accepts, and every click is in the log - here in sync with the game."] },
     { kind: "footage", clip: "fullgame", speed: 16, d: 41, mood: "triumph", label: "Part 7 - The night shift", title: "One whole game",
@@ -180,10 +184,10 @@ const LONG = {
         "The defence goes up at once, the plan is bought as cash comes in, the model checks every coming round, the watch sees nothing get deep.",
         "Round eighty. No lives lost."] },
     { kind: "score", d: 11, mood: "triumph", label: "Part 7 - The night shift", title: "Three days later",
-      stats: [["games", 118], ["wins", 94, C.green], ["medals", 389], ["player level", 130], ["losses", 23, C.red], ["test files", 41]],
+      stats: [["games", 162], ["wins", 132, C.green], ["medals", 427], ["player level", 133], ["losses", 29, C.red], ["test files", 41]],
       box: { kicker: "10/21 - 10/23", big: "3 days", sub: "one account, offline" },
-      caps: ["A hundred and eighteen games: ninety-four wins, three hundred and eighty-nine medals, player level one-thirty.",
-        "Every one of the twenty-three losses became a rule it now follows."] },
+      caps: ["A hundred and sixty-two games: a hundred and thirty-two wins, four hundred and twenty-seven medals, player level one-thirty-three.",
+        "Every one of the twenty-nine losses became a rule it now follows."] },
     { kind: "outro", d: 8, mood: "triumph", label: "Class dismissed", title: "Pop Theory",
       box: { kicker: "PYTHON + OPENCV", big: "btd6bot", sub: "no mods, no AI" },
       caps: ["From a script that couldn't tell a monkey from a wall, to the night shift. No mods, no AI - just pixels, OpenCV, and rules you can read."] },
@@ -216,7 +220,7 @@ const COMPS = {
     { kind: "footage", clip: "party", d: 3, label: "Round 77 of 80", title: "Who is playing?", stat: { label: "HANDS ON THE MOUSE", value: "0" },
       body: "No mods. A Python script that scans the screen.", box: { kicker: "PARTY PARADE", big: "Hard", sub: "x4" },
       vo: "Nobody is touching the mouse, and the game has no mods. A Python script is scanning the screen, and playing." },
-    { kind: "footage", clip: "karts", log: true, d: 3, label: "The evidence", title: "Every click, logged",
+    { kind: "footage", clip: "moonPlace", log: true, d: 3, label: "The evidence", title: "Every click, logged",
       body: "The bot's own log, in sync with the game.", box: { kicker: "BOT.LOG", big: "placed", sub: "x1.5" },
       vo: "Every tower it places, it writes down. Watch the log match the game." },
     { kind: "evidence", img: "models.png", tag: "logs/models.png  - version one", stamp: "PATCHY", d: 3,
@@ -241,22 +245,22 @@ const COMPS = {
       label: "Version two", title: "Every map, decoded", body: "Track, land, water, walls: every legal spot known before the first click.",
       box: { kicker: "4 MAPS OF 91", big: "grids", sub: "from the game's files" },
       vo: "Every map decoded. Every legal spot known before the first click." },
-    { kind: "footage", clip: "parkPlace", log: true, d: 3, label: "Now", title: "First try",
-      body: "A whole defence in seconds.", box: { kicker: "PARK PATH", big: "ABR", sub: "x1.5" },
+    { kind: "footage", clip: "moonPlace", log: true, from: 8, d: 3, label: "Now", title: "First try",
+      body: "A whole defence in seconds.", box: { kicker: "MOON LANDING", big: "Double HP", sub: "x1.5" },
       vo: "Now a whole defence goes down in seconds." },
-    { kind: "footage", clip: "fullgame", from: 36.5, d: 3, label: "Round 80", title: "Victory",
-      body: "Round 80 of 80. No lives lost.", box: { kicker: "PARK PATH", big: "ABR", sub: "x16" },
+    { kind: "footage", clip: "moonWin", from: 4, d: 3, label: "Round 80", title: "Victory",
+      body: "Round 80 of 80. No lives lost.", box: { kicker: "MOON LANDING", big: "Double HP", sub: "x1" },
       vo: "Round eighty. No lives lost." },
-    { kind: "score", d: 3, stats: [["wins", 94, C.green], ["medals", 389], ["player level", 130]], label: "Three days later", title: "94 wins",
+    { kind: "score", d: 3, stats: [["wins", 132, C.green], ["medals", 427], ["player level", 133]], label: "Three days later", title: "132 wins",
       body: "It stopped guessing the game, and started reading it.", box: { kicker: "10/21-10/23", big: "btd6bot", sub: "Python + OpenCV" },
-      vo: "Ninety-four wins in three days. It stopped guessing, and started reading." },
+      vo: "A hundred and thirty-two wins in three days. It stopped guessing, and started reading." },
   ]),
 
   // ------------------------------------------------ 2: there is no AI in this
   short2: SHORT([
-    { kind: "footage", clip: "fullgame", from: 8, d: 3, label: "94 wins", title: "No AI inside", stat: { label: "NEURAL NETS DECIDING", value: "0" },
-      body: "No ChatGPT, no machine learning making choices, no mods.", box: { kicker: "PARK PATH", big: "ABR", sub: "x16" },
-      vo: "This bot has won ninety-four games of Bloons on its own. No A I. No mods." },
+    { kind: "footage", clip: "moonMoab", from: 2, d: 3, label: "132 wins", title: "No AI inside", stat: { label: "NEURAL NETS DECIDING", value: "0" },
+      body: "No ChatGPT, no machine learning making choices, no mods.", box: { kicker: "MOON LANDING", big: "MOAB", sub: "round 40" },
+      vo: "This bot has won a hundred and thirty-two games of Bloons on its own. No A I. No mods." },
     { kind: "stack", d: 3, label: "What it is", title: "Python + OpenCV",
       body: "It scans the screen. No memory reading, no game files touched while it plays.", box: { kicker: "THE STACK", big: "if / else", sub: "21,000 lines" },
       vo: "It scans the screen with Python and Open C V, and follows plain rules. No memory reading, no chat bot." },
@@ -275,11 +279,11 @@ const COMPS = {
     { kind: "margins", from: 4, d: 3, label: "How it knows it will lose", title: "It saw it coming",
       body: "Damage per second vs the bloons, round by round: below 1 = leaks.", box: { kicker: "DPS MODEL", big: "R21 -> R38", sub: "a real loss" },
       vo: "It even does the maths on its own defence. It saw this loss coming ten rounds early." },
-    { kind: "footage", clip: "karts", log: true, from: 3, d: 3, label: "Every decision", title: "Written down",
+    { kind: "footage", clip: "moonPlace", log: true, from: 3, d: 3, label: "Every decision", title: "Written down",
       body: "Every click is a rule, logged.", box: { kicker: "BOT.LOG", big: "in sync", sub: "x1.5" },
       vo: "Every click is a rule, and every rule is written down." },
-    { kind: "footage", clip: "win", d: 3, label: "So", title: "No AI. Just rules.",
-      body: "Python, OpenCV, and rules you can read.", box: { kicker: "PARK PATH", big: "Victory", sub: "round 80" },
+    { kind: "footage", clip: "moonWin", from: 4, d: 3, label: "So", title: "No AI. Just rules.",
+      body: "Python, OpenCV, and rules you can read.", box: { kicker: "MOON LANDING", big: "Victory", sub: "round 80" },
       vo: "No A I. Just pixels, Open C V, and rules you can read." },
   ]),
 
@@ -291,7 +295,7 @@ const COMPS = {
     { kind: "planner", d: 3, label: "Between games", title: "It picks",
       body: "Every medal it hasn't won, scored: chance to win, minutes, XP per minute.", box: { kicker: "PLANNER.PY", big: "p(win)", sub: "never a replay" },
       vo: "Between games, it scores every medal it hasn't won yet, and picks the best next one itself." },
-    { kind: "footage", clip: "parkPlace", log: true, d: 3, label: "Then", title: "It builds",
+    { kind: "footage", clip: "moonPlace", log: true, d: 3, label: "Then", title: "It builds",
       body: "Opens the map, places the defence, logs every click.", box: { kicker: "BOT.LOG", big: "placed", sub: "x1.5" },
       vo: "It opens the map, scans the screen, builds the defence, and writes down every click." },
     { kind: "watch", d: 3, label: "During the round", title: "It watches",
@@ -313,9 +317,9 @@ const COMPS = {
       notes: [[1, "a window over the game: the bot pauses", 0, 0, C.amber]],
       body: "Anything over the game, and it stops clicking until the game is back.", box: { kicker: "INPUTS.PY", big: "pause", sub: "never click through" },
       vo: "And if you need the computer, it stops, and waits until the game is back." },
-    { kind: "score", d: 3, stats: [["wins", 94, C.green], ["medals", 389], ["player level", 130]], label: "By morning", title: "94 wins",
+    { kind: "score", d: 3, stats: [["wins", 132, C.green], ["medals", 427], ["player level", 133]], label: "By now", title: "132 wins",
       body: "An unmodded game, a Python script, the night shift.", box: { kicker: "10/21-10/23", big: "btd6bot", sub: "Python + OpenCV" },
-      vo: "By morning: ninety-four wins. Python and Open C V, on the night shift." },
+      vo: "A hundred and thirty-two wins. Python and Open C V, on the night shift." },
   ]),
 };
 const COMP = COMPS[COMP_ID];

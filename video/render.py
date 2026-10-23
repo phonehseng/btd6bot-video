@@ -187,7 +187,7 @@ def clip_audio(cid, c):
     chunk = first if first.startswith("rec_") else f"rec_20261023_{first}"
     t0 = _stamp(chunk) + c["start"]
     t1 = t0 + c["dur"]
-    files = sorted(list(REC_DIR.glob("aud_*.opus")) + list(REC_DIR.glob("aud_*.wav")))
+    files = sorted({f.name: f for d in (RAW, REC_DIR) for f in [*d.glob("aud_*.opus"), *d.glob("aud_*.wav")]}.values())
     parts = [(f, _stamp(f.name)) for f in files]
     pieces = [(f, t) for f, t in parts if t < t1 and t + 62 > t0]
     if not pieces:
